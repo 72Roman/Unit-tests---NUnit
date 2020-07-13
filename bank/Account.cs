@@ -48,7 +48,7 @@ namespace bank
             }
             else
             {
-                // throw new NotEnoughFundsException();
+                throw new NotEnoughFundsException();
             }
             return destination;
         }

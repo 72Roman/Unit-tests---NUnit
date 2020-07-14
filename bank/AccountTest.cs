@@ -49,23 +49,22 @@ namespace bank
             source.TransferMinFunds(destination, c);
             Assert.AreEqual(c, destination.Balance);
         }
-
-        [Test] 
-        [Category("fail")]
-        [TestCase(200, 150, 100)]
-        [TestCase(200, 150, 100)]
-        [TestCase(200, 150, 100)]
-        [TestCase(200, 150, 100)]
-        public void TransferMinFundsFail(int a, int b, int c)
+        void TransferMinFundsFail()
         {
             Account source = new Account();
-            source.Deposite(a);
+            source.Deposite(200);
             Account destination = new Account();
-            destination.Deposite(b);
+            destination.Deposite(100);
 
-            destination = source.TransferMinFunds(destination, c);
+            destination = source.TransferMinFunds(destination, 190);
+            
         }
-        
+        [Test, Category("throws exception")]
+        public void TransferMinFundsThrowException()
+        {
+            Assert.Throws(typeof(NotEnoughFundsException), new TestDelegate(TransferMinFundsFail));
+        }
+
     }
     public class NotEnoughFundsException : ApplicationException
     {
